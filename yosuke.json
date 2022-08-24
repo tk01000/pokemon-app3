@@ -1,0 +1,23 @@
+{
+  "name": "レッド",
+  "pokemons": [
+    {
+      "id": 1,
+      "nickname": "",
+      "order": 35,
+      "name": "pikachu",
+      "sprites": {
+        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+      }
+    },
+    {
+      "id": 2,
+      "nickname": "",
+      "order": 220,
+      "name": "espeon",
+      "sprites": {
+        "front_default": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/196.png"
+      }
+    }
+  ]
+}
