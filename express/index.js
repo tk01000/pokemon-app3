@@ -15,6 +15,7 @@ app.use(
     pathRewrite: {
       "^/api/pokeapi": "/api/v2",
     },
+    secure: false,
   })
 );
 
@@ -42,12 +43,16 @@ app.post("/trainer", async (req, res, next) => {
   try {
     // TODO: トレーナー名が含まれていなければ400を返す
     // TODO: すでにトレーナーが存在していれば409を返す
-    if (!("name" in req.body && req.body.name.length > 0))
+    if (!("name" in req.body && req.body.name.length > 0)){
+      console.log("400 %d " ,req.body.name.length);
       return res.sendStatus(400);
+    }
     const trainers = await findTrainers();
-    if (trainers.some(({ Key }) => Key === `${req.body.name}.json`))
+    if (trainers.some(({ Key }) => Key === `${req.body.name}.json`)){
+      console.log("Output409");
       return res.sendStatus(409);
-    
+    }
+
     const result = await upsertTrainer(req.body.name, req.body);
     res.status(result["$metadata"].httpStatusCode).send(result);
   } catch (err) {
@@ -73,7 +78,10 @@ app.post("/trainer/:trainerName", async (req, res, next) => {
     // TODO: トレーナーが存在していなければ404を返す
     const trainers = await findTrainers();
     if (!trainers.some(({ Key }) => Key === `${trainerName}.json`))
+    {
+      console.log("Output404");
       return res.sendStatus(404);
+    }
 
     const result = await upsertTrainer(trainerName, req.body);
     res.status(result["$metadata"].httpStatusCode).send(result);
@@ -134,6 +142,7 @@ app.delete(
         (pokemon) => String(pokemon.id) === pokemonId
       );
       trainer.pokemons.splice(index, 1);
+      //S3 オブジェクトからも削除
       const result = await upsertTrainer(trainerName, trainer);
       res.status(result["$metadata"].httpStatusCode).send(result);
     } catch (err) {

@@ -1,4 +1,4 @@
-import { ListObjectsCommand, PutObjectCommand } from "@aws-sdk/client-s3";
+import { ListObjectsCommand, GetObjectCommand, PutObjectCommand,DeleteObjectCommand } from "@aws-sdk/client-s3";
 import s3Client from "./s3Client";
 import { BUCKET_NAME } from "./env";
 

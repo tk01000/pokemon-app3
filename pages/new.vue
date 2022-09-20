@@ -44,19 +44,13 @@ export default {
     <form @submit.prevent>
       <div class="item">
         <label for="name">なまえ</label>
-        <span id="name-description"
-          >とくていの　もじは　とりのぞかれるぞ！</span
-        >
-        <input
-          id="name"
-          @keydown.enter="valid && onOpen(true)"
-          v-model="trainerName"
+        <span id="name-description" >とくていの　もじは　とりのぞかれるぞ！</span>
+        <input id="name" @keydown.enter="valid && onOpen(true)" v-model="trainerName"
           aria-describedby="name-description"
         />
+        <GamifyButton type="button" @click="onOpen(true)" :disabled="!valid" >けってい</GamifyButton>
+        <!-- <GamifyButton type="button" @click="onOpen(true)" :disabled="valid" >けってい</GamifyButton> -->
       </div>
-      <GamifyButton type="button" @click="onOpen(true)" :disabled="!valid"
-        >けってい</GamifyButton
-      >
     </form>
     <GamifyDialog
       v-if="dialog"
